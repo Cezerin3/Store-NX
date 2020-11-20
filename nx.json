@@ -51,6 +51,9 @@
     },
     "client": {
       "tags": []
+    },
+    "config": {
+      "tags": []
     }
   }
 }

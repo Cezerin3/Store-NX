@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@store/theme": ["libs/theme/src/index.ts"],
-      "@store/client": ["libs/client/src/index.ts"]
+      "@store/client": ["libs/client/src/index.ts"],
+      "@store/config": ["libs/config/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
