@@ -42,6 +42,9 @@
     "store-e2e": {
       "tags": [],
       "implicitDependencies": ["store"]
+    },
+    "store-ssr": {
+      "tags": []
     }
   }
 }
