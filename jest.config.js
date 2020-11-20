@@ -5,5 +5,6 @@ module.exports = {
     "<rootDir>/apps/store",
     "<rootDir>/apps/store-ssr",
     "<rootDir>/libs/theme",
+    "<rootDir>/libs/client",
   ],
 }

@@ -48,6 +48,9 @@
     },
     "theme": {
       "tags": []
+    },
+    "client": {
+      "tags": []
     }
   }
 }
