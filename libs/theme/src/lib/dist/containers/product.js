@@ -1,45 +1,47 @@
-import React from "react";
-import PropTypes from "prop-types";
-import MetaTags from "../components/metaTags";
-import ProductDetails from "../components/productDetails";
+import React from "react"
+import PropTypes from "prop-types"
+import MetaTags from "../components/metaTags"
+import ProductDetails from "../components/productDetails"
 
 const ProductContainer = props => {
   const {
     addCartItem,
     getJSONLD,
-    state: {
-      productDetails,
-      settings,
-      categories
-    }
-  } = props;
+    state: { productDetails, settings, categories },
+  } = props
 
   if (productDetails) {
-    const {
-      images
-    } = productDetails;
-    const imageUrl = images && images.length > 0 ? images[0].url : null;
-    const title = productDetails.meta_title && productDetails.meta_title.length > 0 ? productDetails.meta_title : productDetails.name;
-    const jsonld = getJSONLD(props.state);
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(MetaTags, {
-      title: title,
-      description: productDetails.meta_description,
-      canonicalUrl: productDetails.url,
-      imageUrl: imageUrl,
-      ogType: "product",
-      ogTitle: productDetails.name,
-      ogDescription: productDetails.meta_description,
-      jsonld: jsonld
-    }), /*#__PURE__*/React.createElement(ProductDetails, {
-      settings: settings,
-      product: productDetails,
-      addCartItem: addCartItem,
-      categories: categories
-    }));
+    const { images } = productDetails
+    const imageUrl = images && images.length > 0 ? images[0].url : null
+    const title =
+      productDetails.meta_title && productDetails.meta_title.length > 0
+        ? productDetails.meta_title
+        : productDetails.name
+    const jsonld = getJSONLD(props.state)
+    return /*#__PURE__*/ React.createElement(
+      React.Fragment,
+      null,
+      /*#__PURE__*/ React.createElement(MetaTags, {
+        title: title,
+        description: productDetails.meta_description,
+        canonicalUrl: productDetails.url,
+        imageUrl: imageUrl,
+        ogType: "product",
+        ogTitle: productDetails.name,
+        ogDescription: productDetails.meta_description,
+        jsonld: jsonld,
+      }),
+      /*#__PURE__*/ React.createElement(ProductDetails, {
+        settings: settings,
+        product: productDetails,
+        addCartItem: addCartItem,
+        categories: categories,
+      })
+    )
   }
 
-  return null;
-};
+  return null
+}
 
 ProductContainer.propTypes = {
   getJSONLD: PropTypes.func.isRequired,
@@ -47,7 +49,7 @@ ProductContainer.propTypes = {
   state: PropTypes.shape({
     settings: PropTypes.shape({}),
     productDetails: PropTypes.shape({}),
-    categories: PropTypes.arrayOf(PropTypes.shape({}))
-  }).isRequired
-};
-export default ProductContainer;
+    categories: PropTypes.arrayOf(PropTypes.shape({})),
+  }).isRequired,
+}
+export default ProductContainer

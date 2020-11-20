@@ -1,10 +1,10 @@
-import React from "react";
-import { themeSettings, text } from "../../lib/settings";
-import Register from "./register";
+import React from "react"
+import { themeSettings, text } from "../../lib/settings"
+import Register from "./register"
 
 class RegisterForm extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.handleContactsSubmit = values => {
       this.props.registerUser({
@@ -12,49 +12,48 @@ class RegisterForm extends React.Component {
         last_name: values.last_name,
         email: values.email,
         password: values.password,
-        history: this.props.history
-      });
-    };
+        history: this.props.history,
+      })
+    }
 
     this.state = {
-      verifiedToken: false
-    };
+      verifiedToken: false,
+    }
   }
 
   verifyToken() {
     this.setState({
-      verifiedToken: true
-    });
+      verifiedToken: true,
+    })
     this.props.registerUser({
-      token: this.props.location.search.split("=")[1]
-    });
+      token: this.props.location.search.split("=")[1],
+    })
   }
 
   render() {
-    const {
-      settings,
-      registerProperties
-    } = this.props.state;
+    const { settings, registerProperties } = this.props.state
 
-    if (this.props.location.search !== "" && this.props.location.search.indexOf("?token=") !== -1) {
-      !this.state.verifiedToken ? this.verifyToken() : "";
+    if (
+      this.props.location.search !== "" &&
+      this.props.location.search.indexOf("?token=") !== -1
+    ) {
+      !this.state.verifiedToken ? this.verifyToken() : ""
     }
 
     const {
       checkoutInputClass = "checkout-field",
       checkoutButtonClass = "checkout-button",
-      checkoutEditButtonClass = "checkout-button-edit"
-    } = themeSettings;
-    return /*#__PURE__*/React.createElement(Register, {
+      checkoutEditButtonClass = "checkout-button-edit",
+    } = themeSettings
+    return /*#__PURE__*/ React.createElement(Register, {
       inputClassName: checkoutInputClass,
       buttonClassName: checkoutButtonClass,
       editButtonClassName: checkoutEditButtonClass,
       settings: settings,
       registerProperties: registerProperties,
-      onSubmit: this.handleContactsSubmit
-    });
+      onSubmit: this.handleContactsSubmit,
+    })
   }
-
 }
 
-export default RegisterForm;
+export default RegisterForm

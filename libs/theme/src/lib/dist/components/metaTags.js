@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Helmet from "react-helmet";
+import React from "react"
+import PropTypes from "prop-types"
+import Helmet from "react-helmet"
 
 const MetaTags = ({
   title = null,
@@ -10,70 +10,81 @@ const MetaTags = ({
   ogType,
   ogTitle,
   ogDescription,
-  jsonld
+  jsonld,
 }) => {
-  const metaArray = [];
-  const linkArray = [];
+  const metaArray = []
+  const linkArray = []
 
   if (description && description.length > 0) {
     metaArray.push({
       name: "description",
-      content: description
-    });
+      content: description,
+    })
   }
 
   if (canonicalUrl && canonicalUrl.length > 0) {
     linkArray.push({
       rel: "canonical",
-      href: canonicalUrl
-    });
+      href: canonicalUrl,
+    })
     metaArray.push({
       property: "og:url",
-      content: canonicalUrl
-    });
+      content: canonicalUrl,
+    })
   }
 
   if (imageUrl && imageUrl.length > 0) {
     metaArray.push({
       property: "og:image",
-      content: imageUrl
-    });
+      content: imageUrl,
+    })
     linkArray.push({
       rel: "image_src",
-      href: imageUrl
-    });
+      href: imageUrl,
+    })
   }
 
   if (ogType && ogType.length > 0) {
     metaArray.push({
       property: "og:type",
-      content: ogType
-    });
+      content: ogType,
+    })
   }
 
   if (ogTitle && ogTitle.length > 0) {
     metaArray.push({
       property: "og:title",
-      content: ogTitle
-    });
+      content: ogTitle,
+    })
   }
 
   if (ogDescription && ogDescription.length > 0) {
     metaArray.push({
       property: "og:description",
-      content: ogDescription
-    });
+      content: ogDescription,
+    })
   }
 
-  const scriptJSONLD = jsonld && jsonld.length > 0 ? /*#__PURE__*/React.createElement("script", {
-    type: "application/ld+json"
-  }, jsonld) : null;
-  return /*#__PURE__*/React.createElement(Helmet, {
-    title: title,
-    meta: metaArray,
-    link: linkArray
-  }, scriptJSONLD);
-};
+  const scriptJSONLD =
+    jsonld && jsonld.length > 0
+      ? /*#__PURE__*/ React.createElement(
+          "script",
+          {
+            type: "application/ld+json",
+          },
+          jsonld
+        )
+      : null
+  return /*#__PURE__*/ React.createElement(
+    Helmet,
+    {
+      title: title,
+      meta: metaArray,
+      link: linkArray,
+    },
+    scriptJSONLD
+  )
+}
 
 MetaTags.propTypes = {
   title: PropTypes.string,
@@ -83,8 +94,8 @@ MetaTags.propTypes = {
   ogType: PropTypes.string,
   ogTitle: PropTypes.string,
   ogDescription: PropTypes.string,
-  jsonld: PropTypes.string
-};
+  jsonld: PropTypes.string,
+}
 MetaTags.defaultProps = {
   title: null,
   description: null,
@@ -93,6 +104,6 @@ MetaTags.defaultProps = {
   ogType: null,
   ogTitle: null,
   ogDescription: null,
-  jsonld: null
-};
-export default MetaTags;
+  jsonld: null,
+}
+export default MetaTags

@@ -1,74 +1,87 @@
-import React from "react";
-import * as helper from "../../lib/helper";
-import { themeSettings } from "../../lib/settings";
+import React from "react"
+import * as helper from "../../lib/helper"
+import { themeSettings } from "../../lib/settings"
 
-const FormattedCurrency = ({
-  number,
-  settings
-}) => helper.formatCurrency(number, settings);
+const FormattedCurrency = ({ number, settings }) =>
+  helper.formatCurrency(number, settings)
 
-const NewAndOldPrices = ({
-  newPrice,
-  oldPrice,
-  settings
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "product-price"
-}, /*#__PURE__*/React.createElement("span", {
-  className: "product-new-price"
-}, /*#__PURE__*/React.createElement(FormattedCurrency, {
-  settings: settings,
-  number: newPrice
-})), /*#__PURE__*/React.createElement("del", {
-  className: "product-old-price"
-}, /*#__PURE__*/React.createElement(FormattedCurrency, {
-  settings: settings,
-  number: oldPrice
-})));
+const NewAndOldPrices = ({ newPrice, oldPrice, settings }) =>
+  /*#__PURE__*/ React.createElement(
+    "div",
+    {
+      className: "product-price",
+    },
+    /*#__PURE__*/ React.createElement(
+      "span",
+      {
+        className: "product-new-price",
+      },
+      /*#__PURE__*/ React.createElement(FormattedCurrency, {
+        settings: settings,
+        number: newPrice,
+      })
+    ),
+    /*#__PURE__*/ React.createElement(
+      "del",
+      {
+        className: "product-old-price",
+      },
+      /*#__PURE__*/ React.createElement(FormattedCurrency, {
+        settings: settings,
+        number: oldPrice,
+      })
+    )
+  )
 
-const Price = ({
-  product,
-  variant,
-  isAllOptionsSelected,
-  settings
-}) => {
-  let priceStyle = {};
+const Price = ({ product, variant, isAllOptionsSelected, settings }) => {
+  let priceStyle = {}
 
-  if (themeSettings.details_price_size && themeSettings.details_price_size > 0) {
-    priceStyle.fontSize = themeSettings.details_price_size + "px";
+  if (
+    themeSettings.details_price_size &&
+    themeSettings.details_price_size > 0
+  ) {
+    priceStyle.fontSize = themeSettings.details_price_size + "px"
   }
 
-  if (themeSettings.details_price_color && themeSettings.details_price_color.length > 0) {
-    priceStyle.color = themeSettings.details_price_color;
+  if (
+    themeSettings.details_price_color &&
+    themeSettings.details_price_color.length > 0
+  ) {
+    priceStyle.color = themeSettings.details_price_color
   }
 
-  let price = 0;
-  let oldPrice = 0;
+  let price = 0
+  let oldPrice = 0
 
   if (product.variable && variant && variant.price > 0) {
-    price = variant.price;
+    price = variant.price
   } else {
-    price = product.price;
+    price = product.price
   }
 
   if (product.on_sale) {
-    oldPrice = product.regular_price;
+    oldPrice = product.regular_price
   }
 
   if (oldPrice > 0) {
-    return /*#__PURE__*/React.createElement(NewAndOldPrices, {
+    return /*#__PURE__*/ React.createElement(NewAndOldPrices, {
       settings: settings,
       newPrice: price,
-      oldPrice: oldPrice
-    });
+      oldPrice: oldPrice,
+    })
   } else {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "product-price",
-      style: priceStyle
-    }, /*#__PURE__*/React.createElement(FormattedCurrency, {
-      settings: settings,
-      number: price
-    }));
+    return /*#__PURE__*/ React.createElement(
+      "div",
+      {
+        className: "product-price",
+        style: priceStyle,
+      },
+      /*#__PURE__*/ React.createElement(FormattedCurrency, {
+        settings: settings,
+        number: price,
+      })
+    )
   }
-};
+}
 
-export default Price;
+export default Price

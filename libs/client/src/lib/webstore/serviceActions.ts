@@ -4,7 +4,7 @@ class WebStoreServices {
     this.client = client
   }
 
-  call(serviceID:string, actionID:string) {
+  call(serviceID: string, actionID: string) {
     return this.client.post(`/services/${serviceID}/actions/${actionID}`)
   }
 }

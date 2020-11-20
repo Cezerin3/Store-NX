@@ -1,51 +1,42 @@
-import React from "react";
-import api from "../../lib/api";
-import PageList from "./list";
+import React from "react"
+import api from "../../lib/api"
+import PageList from "./list"
 
 class CustomPageList extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.fetchData = ({
-      tags,
-      sort
-    }) => {
+    this.fetchData = ({ tags, sort }) => {
       const filter = {
         tags: tags,
-        sort: sort
-      };
-      api.ajax.pages.list(filter).then(({
-        status,
-        json
-      }) => {
+        sort: sort,
+      }
+      api.ajax.pages.list(filter).then(({ status, json }) => {
         this.setState({
-          pages: json
-        });
-      });
-    };
+          pages: json,
+        })
+      })
+    }
 
     this.state = {
-      pages: []
-    };
+      pages: [],
+    }
   }
 
   componentDidMount() {
-    this.fetchData(this.props);
+    this.fetchData(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchData(nextProps);
+    this.fetchData(nextProps)
   }
 
   render() {
-    const {
-      pages
-    } = this.state;
-    return /*#__PURE__*/React.createElement(PageList, {
-      pages: pages
-    });
+    const { pages } = this.state
+    return /*#__PURE__*/ React.createElement(PageList, {
+      pages: pages,
+    })
   }
-
 }
 
-export default CustomPageList;
+export default CustomPageList

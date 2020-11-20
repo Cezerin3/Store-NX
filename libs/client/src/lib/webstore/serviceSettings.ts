@@ -4,11 +4,11 @@ class WebStoreServices {
     this.client = client
   }
 
-  retrieve(id:string) {
+  retrieve(id: string) {
     return this.client.get(`/services/${id}/settings`)
   }
 
-  update(id:string, data) {
+  update(id: string, data) {
     return this.client.post(`/services/${id}/settings`, data)
   }
 }

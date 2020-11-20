@@ -1,70 +1,77 @@
-import React from "react";
-import PropTypes from "prop-types";
-import api from "../../lib/api";
-import ProductList from "../productList";
+import React from "react"
+import PropTypes from "prop-types"
+import api from "../../lib/api"
+import ProductList from "../productList"
 
 class CustomProducts extends React.Component {
   constructor(...args) {
-    var _temp;
+    var _temp
 
-    return _temp = super(...args), this.state = {
-      products: []
-    }, this.fetchProducts = ({
-      ids,
-      sku,
-      sort,
-      limit,
-      category_id,
-      tags,
-      attributes,
-      price_from,
-      price_to,
-      on_sale
-    }) => {
-      const filter = {
+    return (
+      (_temp = super(...args)),
+      (this.state = {
+        products: [],
+      }),
+      (this.fetchProducts = ({
         ids,
         sku,
-        tags,
-        on_sale,
-        search: null,
+        sort,
+        limit,
         category_id,
+        tags,
+        attributes,
         price_from,
         price_to,
-        sort,
-        fields: "path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags",
-        limit: limit || 4,
-        offset: 0
-      };
-
-      if (attributes && Array.isArray(attributes) && attributes.length > 0) {
-        attributes.forEach(attr => {
-          filter[`attributes.${attr.name}`] = attr.value;
-        });
-      }
-
-      api.ajax.products.list(filter).then(({
-        json
+        on_sale,
       }) => {
-        if (!this.isCancelled) {
-          this.setState({
-            products: json.data
-          });
+        const filter = {
+          ids,
+          sku,
+          tags,
+          on_sale,
+          search: null,
+          category_id,
+          price_from,
+          price_to,
+          sort,
+          fields:
+            "path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags",
+          limit: limit || 4,
+          offset: 0,
         }
-      }).catch(() => {});
-    }, _temp;
+
+        if (attributes && Array.isArray(attributes) && attributes.length > 0) {
+          attributes.forEach(attr => {
+            filter[`attributes.${attr.name}`] = attr.value
+          })
+        }
+
+        api.ajax.products
+          .list(filter)
+          .then(({ json }) => {
+            if (!this.isCancelled) {
+              this.setState({
+                products: json.data,
+              })
+            }
+          })
+          .catch(() => {})
+      }),
+      _temp
+    )
   }
 
   componentDidMount() {
-    this.isCancelled = false;
-    this.fetchProducts(this.props);
+    this.isCancelled = false
+    this.fetchProducts(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchProducts(nextProps);
+    this.fetchProducts(nextProps)
   }
 
   componentWillUnmount() {
-    this.isCancelled = true;
+    this.isCancelled = true
   }
 
   render() {
@@ -77,12 +84,10 @@ class CustomProducts extends React.Component {
       columnCountOnTablet,
       columnCountOnDesktop,
       columnCountOnWidescreen,
-      columnCountOnFullhd
-    } = this.props;
-    const {
-      products
-    } = this.state;
-    return /*#__PURE__*/React.createElement(ProductList, {
+      columnCountOnFullhd,
+    } = this.props
+    const { products } = this.state
+    return /*#__PURE__*/ React.createElement(ProductList, {
       products: products,
       addCartItem: addCartItem,
       settings: settings,
@@ -94,23 +99,27 @@ class CustomProducts extends React.Component {
       columnCountOnWidescreen: columnCountOnWidescreen,
       columnCountOnFullhd: columnCountOnFullhd,
       isCentered: isCentered,
-      className: className
-    });
+      className: className,
+    })
   }
-
 }
 
 CustomProducts.propTypes = {
-  ids: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  ids: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   sku: PropTypes.string,
   sort: PropTypes.string,
   limit: PropTypes.number.isRequired,
   category_id: PropTypes.string,
   tags: PropTypes.string,
-  attributes: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  })),
+  attributes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ),
   price_from: PropTypes.number,
   price_to: PropTypes.number,
   on_sale: PropTypes.bool,
@@ -122,8 +131,8 @@ CustomProducts.propTypes = {
   columnCountOnTablet: PropTypes.number,
   columnCountOnDesktop: PropTypes.number,
   columnCountOnWidescreen: PropTypes.number,
-  columnCountOnFullhd: PropTypes.number
-};
+  columnCountOnFullhd: PropTypes.number,
+}
 CustomProducts.defaultProps = {
   ids: null,
   sku: null,
@@ -140,6 +149,6 @@ CustomProducts.defaultProps = {
   columnCountOnTablet: 3,
   columnCountOnDesktop: 4,
   columnCountOnWidescreen: 4,
-  columnCountOnFullhd: 4
-};
-export default CustomProducts;
+  columnCountOnFullhd: 4,
+}
+export default CustomProducts

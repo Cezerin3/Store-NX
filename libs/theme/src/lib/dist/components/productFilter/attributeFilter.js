@@ -1,98 +1,116 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { themeSettings, text } from "../../lib/settings";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { themeSettings, text } from "../../lib/settings"
 
 class AttributeValue extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.onChange = event => {
       const {
         attributeName,
         valueName,
         setFilterAttribute,
-        unsetFilterAttribute
-      } = this.props;
-      const checked = event.target.checked;
+        unsetFilterAttribute,
+      } = this.props
+      const checked = event.target.checked
       this.setState({
-        checked: checked
-      });
+        checked: checked,
+      })
 
       if (checked) {
-        setFilterAttribute(attributeName, valueName);
+        setFilterAttribute(attributeName, valueName)
       } else {
-        unsetFilterAttribute(attributeName, valueName);
+        unsetFilterAttribute(attributeName, valueName)
       }
-    };
+    }
 
     this.state = {
-      checked: props.checked
-    };
+      checked: props.checked,
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.checked !== this.props.checked) {
       this.setState({
-        checked: nextProps.checked
-      });
+        checked: nextProps.checked,
+      })
     }
   }
 
   render() {
-    const {
-      valueName,
-      count
-    } = this.props;
-    const isDisabled = count === 0;
-    const classChecked = this.state.checked ? "attribute-checked" : "";
-    const classDisabled = isDisabled ? "attribute-disabled" : "";
-    return /*#__PURE__*/React.createElement("label", {
-      className: classChecked + " " + classDisabled
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "checkbox",
-      disabled: isDisabled,
-      onChange: this.onChange,
-      checked: this.state.checked
-    }), valueName);
+    const { valueName, count } = this.props
+    const isDisabled = count === 0
+    const classChecked = this.state.checked ? "attribute-checked" : ""
+    const classDisabled = isDisabled ? "attribute-disabled" : ""
+    return /*#__PURE__*/ React.createElement(
+      "label",
+      {
+        className: classChecked + " " + classDisabled,
+      },
+      /*#__PURE__*/ React.createElement("input", {
+        type: "checkbox",
+        disabled: isDisabled,
+        onChange: this.onChange,
+        checked: this.state.checked,
+      }),
+      valueName
+    )
   }
-
 }
 
 const AttributeSet = ({
   attribute,
   setFilterAttribute,
-  unsetFilterAttribute
+  unsetFilterAttribute,
 }) => {
-  const values = attribute.values.map((value, index) => /*#__PURE__*/React.createElement(AttributeValue, {
-    key: index,
-    attributeName: attribute.name,
-    valueName: value.name,
-    checked: value.checked,
-    count: value.count,
-    setFilterAttribute: setFilterAttribute,
-    unsetFilterAttribute: unsetFilterAttribute
-  }));
-  return /*#__PURE__*/React.createElement("div", {
-    className: "attribute"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "attribute-title"
-  }, attribute.name), values);
-};
+  const values = attribute.values.map((value, index) =>
+    /*#__PURE__*/ React.createElement(AttributeValue, {
+      key: index,
+      attributeName: attribute.name,
+      valueName: value.name,
+      checked: value.checked,
+      count: value.count,
+      setFilterAttribute: setFilterAttribute,
+      unsetFilterAttribute: unsetFilterAttribute,
+    })
+  )
+  return /*#__PURE__*/ React.createElement(
+    "div",
+    {
+      className: "attribute",
+    },
+    /*#__PURE__*/ React.createElement(
+      "div",
+      {
+        className: "attribute-title",
+      },
+      attribute.name
+    ),
+    values
+  )
+}
 
 const AttributeFilter = ({
   attributes,
   setFilterAttribute,
-  unsetFilterAttribute
+  unsetFilterAttribute,
 }) => {
-  const attributeSets = attributes.map((attribute, index) => /*#__PURE__*/React.createElement(AttributeSet, {
-    key: index,
-    attribute: attribute,
-    setFilterAttribute: setFilterAttribute,
-    unsetFilterAttribute: unsetFilterAttribute
-  }));
-  return /*#__PURE__*/React.createElement("div", {
-    className: "attribute-filter"
-  }, attributeSets);
-};
+  const attributeSets = attributes.map((attribute, index) =>
+    /*#__PURE__*/ React.createElement(AttributeSet, {
+      key: index,
+      attribute: attribute,
+      setFilterAttribute: setFilterAttribute,
+      unsetFilterAttribute: unsetFilterAttribute,
+    })
+  )
+  return /*#__PURE__*/ React.createElement(
+    "div",
+    {
+      className: "attribute-filter",
+    },
+    attributeSets
+  )
+}
 
-export default AttributeFilter;
+export default AttributeFilter

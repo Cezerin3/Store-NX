@@ -4,7 +4,7 @@ class WebStoreServices {
     this.client = client
   }
 
-  list(serviceID:string) {
+  list(serviceID: string) {
     return this.client.get(`/services/${serviceID}/logs`)
   }
 }

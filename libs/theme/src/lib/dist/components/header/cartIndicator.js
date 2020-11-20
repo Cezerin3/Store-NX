@@ -1,64 +1,64 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { themeSettings, text } from "../../lib/settings";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { themeSettings, text } from "../../lib/settings"
 
-const CartCount = ({
-  cart
-}) => {
+const CartCount = ({ cart }) => {
   if (cart && cart.items && cart.items.length > 0) {
-    const itemsCount = cart.items.reduce((a, b) => a + b.quantity, 0);
-    return /*#__PURE__*/React.createElement("span", {
-      className: "cart-count"
-    }, itemsCount);
+    const itemsCount = cart.items.reduce((a, b) => a + b.quantity, 0)
+    return /*#__PURE__*/ React.createElement(
+      "span",
+      {
+        className: "cart-count",
+      },
+      itemsCount
+    )
   }
 
-  return null;
-};
+  return null
+}
 
-const CartIcon = ({
-  cartIsActive
-}) => {
+const CartIcon = ({ cartIsActive }) => {
   if (cartIsActive) {
-    return /*#__PURE__*/React.createElement("img", {
+    return /*#__PURE__*/ React.createElement("img", {
       src: "/assets/images/close.svg",
       className: "icon",
       alt: text.close,
       title: text.close,
       style: {
         minWidth: 24,
-        padding: 4
-      }
-    });
+        padding: 4,
+      },
+    })
   }
 
-  return /*#__PURE__*/React.createElement("img", {
+  return /*#__PURE__*/ React.createElement("img", {
     src: "/assets/images/shopping-bag.svg",
     className: "icon",
     alt: text.cart,
     title: text.cart,
     style: {
-      minWidth: 24
-    }
-  });
-};
+      minWidth: 24,
+    },
+  })
+}
 
 class CartIndicator extends React.PureComponent {
   render() {
-    const {
-      cart,
-      onClick,
-      cartIsActive
-    } = this.props;
-    return /*#__PURE__*/React.createElement("span", {
-      className: "cart-button",
-      onClick: onClick
-    }, /*#__PURE__*/React.createElement(CartIcon, {
-      cartIsActive: cartIsActive
-    }), /*#__PURE__*/React.createElement(CartCount, {
-      cart: cart
-    }));
+    const { cart, onClick, cartIsActive } = this.props
+    return /*#__PURE__*/ React.createElement(
+      "span",
+      {
+        className: "cart-button",
+        onClick: onClick,
+      },
+      /*#__PURE__*/ React.createElement(CartIcon, {
+        cartIsActive: cartIsActive,
+      }),
+      /*#__PURE__*/ React.createElement(CartCount, {
+        cart: cart,
+      })
+    )
   }
-
 }
 
-export default CartIndicator;
+export default CartIndicator

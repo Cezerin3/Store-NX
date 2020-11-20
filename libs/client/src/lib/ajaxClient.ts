@@ -1,7 +1,7 @@
 import RestClient from "./restClient"
 
 class AjaxClient extends RestClient {
-  getConfig(method:string, data, cookie) {
+  getConfig(method: string, data, cookie) {
     const config = {
       credentials: this.getCredentialsConfig(this.baseUrl),
       method,
@@ -20,7 +20,7 @@ class AjaxClient extends RestClient {
     return config
   }
 
-  getCredentialsConfig(baseUrl:string) {
+  getCredentialsConfig(baseUrl: string) {
     const includePrefix =
       baseUrl.includes("http://") || baseUrl.includes("https://")
     return includePrefix ? "include" : "same-origin"

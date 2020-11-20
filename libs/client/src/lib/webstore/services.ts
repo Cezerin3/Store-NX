@@ -10,15 +10,15 @@ class WebStoreServices {
     return this.client.get(this.resourceUrl, filter)
   }
 
-  retrieve(id:string) {
+  retrieve(id: string) {
     return this.client.get(`${this.resourceUrl}/${id}`)
   }
 
-  enable(id:string) {
+  enable(id: string) {
     return this.client.post(`${this.resourceUrl}/${id}/enable`)
   }
 
-  disable(id:string) {
+  disable(id: string) {
     return this.client.post(`${this.resourceUrl}/${id}/disable`)
   }
 }

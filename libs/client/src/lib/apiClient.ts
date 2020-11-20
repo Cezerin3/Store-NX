@@ -2,7 +2,7 @@ import fetch from "cross-fetch"
 import RestClient from "./restClient"
 
 class ApiClient extends RestClient {
-  static authorize = (baseUrl:string, email:string) => {
+  static authorize = (baseUrl: string, email: string) => {
     const config = {
       method: "post",
       headers: {
