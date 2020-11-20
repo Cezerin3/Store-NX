@@ -55,7 +55,7 @@ class ThemePlaceholdersService {
       return new Error("Required fields are missing")
     }
 
-    let field = {}
+    let field: any = {}
 
     if (data.place !== undefined) {
       field.place = parse.getString(data.place)
@@ -73,7 +73,7 @@ class ThemePlaceholdersService {
       return new Error("Required fields are missing")
     }
 
-    let field = {}
+    let field: any = {}
 
     if (data.key !== undefined) {
       field.key = parse.getString(data.key)

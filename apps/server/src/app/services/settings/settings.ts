@@ -1,11 +1,11 @@
-import path from "path"
-import fse from "fs-extra"
-import url from "url"
 import formidable from "formidable"
-import settings from "../../lib/settings"
-import utils from "../../lib/utils"
+import fse from "fs-extra"
+import path from "path"
+import url from "url"
 import { db } from "../../lib/mongo"
 import parse from "../../lib/parse"
+import settings from "../../lib/settings"
+import utils from "../../lib/utils"
 
 class SettingsService {
   constructor() {
@@ -80,7 +80,7 @@ class SettingsService {
       return new Error("Required fields are missing")
     }
 
-    let settings = {}
+    let settings: any = {}
 
     if (data.store_name !== undefined) {
       settings.store_name = parse.getString(data.store_name)

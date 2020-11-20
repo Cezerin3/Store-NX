@@ -1,1 +1,5 @@
-export { Server } from "@store/config"
+import { Admin, Server, Store } from "@store/config"
+
+export { Store, Admin }
+
+export default Server

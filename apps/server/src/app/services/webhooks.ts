@@ -1,5 +1,5 @@
-import { ObjectID } from "mongodb"
 import lruCache from "lru-cache"
+import { ObjectID } from "mongodb"
 import { db } from "../lib/mongo"
 import parse from "../lib/parse"
 
@@ -82,7 +82,7 @@ class WebhooksService {
   }
 
   getValidDocumentForInsert(data) {
-    let webhook = {
+    let webhook: any = {
       date_created: new Date(),
     }
 
@@ -100,7 +100,7 @@ class WebhooksService {
       return new Error("Required fields are missing")
     }
 
-    let webhook = {
+    let webhook: any = {
       date_updated: new Date(),
     }
 
