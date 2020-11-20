@@ -1,17 +1,14 @@
 import React from "react"
-
-import "./app.scss"
-
+import { Link, Route } from "react-router-dom"
+import "./app.sass"
 import { ReactComponent as Logo } from "./logo.svg"
 import star from "./star.svg"
-
-import { Route, Link } from "react-router-dom"
 
 export function App() {
   /*
    * Replace the elements below with your own.
    *
-   * Note: The corresponding styles are in the ./app.scss file.
+   * Note: The corresponding styles are in the ./app.sass file.
    */
   return (
     <div className="app">

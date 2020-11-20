@@ -162,7 +162,7 @@
             "polyfills": "apps/store/src/polyfills.ts",
             "tsConfig": "apps/store/tsconfig.app.json",
             "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"],
-            "styles": ["apps/store/src/styles.scss"],
+            "styles": ["apps/store/src/styles.sass"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -288,6 +288,27 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/store-ssr/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "theme": {
+      "root": "libs/theme",
+      "sourceRoot": "libs/theme/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/theme/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/theme/jest.config.js",
             "passWithNoTests": true
           }
         }

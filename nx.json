@@ -45,6 +45,9 @@
     },
     "store-ssr": {
       "tags": []
+    },
+    "theme": {
+      "tags": []
     }
   }
 }
