@@ -1,3 +1,5 @@
+import Admin from "./admin"
 import Server from "./server"
+import Store from "./store"
 
-export default Server
+export { Server, Store, Admin }
