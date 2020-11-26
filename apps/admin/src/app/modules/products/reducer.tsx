@@ -552,6 +552,7 @@ const productSlice = createSlice({
     },
     setCategorySuccess() {},
     deleteProductsSuccess() {},
+    successCreateProduct(state, action: PayloadAction<any>) {},
   },
   extraReducers: builder => {
     builder.addCase(importProducts.pending, () => {}),
@@ -608,6 +609,7 @@ export const {
   imagesUploadEnd,
   setCategorySuccess,
   deleteProductsSuccess,
+  successCreateProduct,
 } = productSlice.actions
 
 export default productSlice.reducer
