@@ -6,7 +6,7 @@ import {
   deleteVariant,
   setVariantOption,
   updateVariant,
-} from "../../actions"
+} from "../../reducer"
 import ProductVariantsGrid from "./components/grid"
 
 const mapStateToProps = (state, ownProps) => {

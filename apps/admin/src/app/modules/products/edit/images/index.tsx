@@ -5,7 +5,7 @@ import {
   updateImage,
   updateImages,
   uploadImages,
-} from "../../actions"
+} from "../../reducer"
 import ProductImages from "./components/images"
 
 const mapStateToProps = (state, ownProps) => {

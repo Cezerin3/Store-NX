@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { fetchProducts } from "../../products/actions"
+import { fetchProducts } from "../../products/reducer"
 import {
   createCategory,
   fetchCategoriesIfNeeded,

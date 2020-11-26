@@ -7,7 +7,7 @@ import {
   fetchOptions,
   updateOption,
   updateOptionValue,
-} from "../../actions"
+} from "../../reducer"
 import ProductOptionForm from "./components/option"
 
 const mapStateToProps = (state, ownProps) => {
