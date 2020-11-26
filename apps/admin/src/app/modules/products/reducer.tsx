@@ -53,7 +53,7 @@ export const importProducts = createAsyncThunk(
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (args, { dispatch, getState }) => {
-    const state = getState()
+    const state: any = getState()
     if (state.products.loadingItems) {
       // do nothing
     } else {
@@ -77,7 +77,7 @@ export const fetchProducts = createAsyncThunk(
 export const fetchMoreProducts = createAsyncThunk(
   "products/fetchMoreProducts",
   async (args, { dispatch, getState }) => {
-    const state = getState()
+    const state: any = getState()
     if (!state.products.loadingItems) {
       dispatch(requestMoreProducts())
 
@@ -99,7 +99,7 @@ export const fetchMoreProducts = createAsyncThunk(
 export const deleteCurrentProduct = createAsyncThunk(
   "products/deleteCurrentProduct",
   async (args, { getState }) => {
-    const state = getState()
+    const state: any = getState()
     let product = state.products.editProduct
     if (product && product.id) {
       return api.products
@@ -115,7 +115,7 @@ export const deleteCurrentProduct = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
   "products/deleteProducts",
   async (args, { dispatch, getState }) => {
-    const state = getState()
+    const state: any = getState()
     try {
       await state.products.selected.map(productId =>
         api.products.delete(productId)
@@ -132,8 +132,8 @@ export const deleteProducts = createAsyncThunk(
 
 export const setCategory = createAsyncThunk(
   "products/setCategory",
-  async ({ category_id }, { dispatch, getState }) => {
-    const state = getState()
+  async ({ category_id }: any, { dispatch, getState }) => {
+    const state: any = getState()
     let promises = state.products.selected.map(productId =>
       api.products.update(productId, { category_id: category_id })
     )
@@ -152,7 +152,7 @@ export const setCategory = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
-  async ({ data }, { dispatch }) => {
+  async ({ data }: any, { dispatch }) => {
     dispatch(requestUpdateProduct())
 
     return api.products
@@ -169,8 +169,8 @@ export const updateProduct = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
-  async ({ history }, { dispatch, getState }) => {
-    const state = getState()
+  async ({ history }: any, { dispatch, getState }) => {
+    const state: any = getState()
 
     const productDraft = {
       enabled: false,
@@ -203,7 +203,7 @@ const fixProductData = product => {
 
 export const fetchProduct = createAsyncThunk(
   "products/fetchProduct",
-  async ({ id }, { dispatch }) => {
+  async ({ id }: any, { dispatch }) => {
     dispatch(requestProduct())
 
     return api.products
@@ -220,7 +220,7 @@ export const fetchProduct = createAsyncThunk(
 
 export const fetchImages = createAsyncThunk(
   "products/fetchImages",
-  async ({ productId }, { dispatch }) => {
+  async ({ productId }: any, { dispatch }) => {
     return api.products.images
       .list(productId)
       .then(({ status, json }) => {
@@ -232,7 +232,7 @@ export const fetchImages = createAsyncThunk(
 
 export const fetchOptions = createAsyncThunk(
   "products/fetchOptions",
-  async ({ productId }, { dispatch }) => {
+  async ({ productId }: any, { dispatch }) => {
     return api.products.options
       .list(productId)
       .then(({ status, json }) => {
@@ -244,7 +244,7 @@ export const fetchOptions = createAsyncThunk(
 
 export const fetchVariants = createAsyncThunk(
   "products/fetchVariants",
-  async ({ productId }, { dispatch }) => {
+  async ({ productId }: any, { dispatch }) => {
     return api.products.variants
       .list(productId)
       .then(({ status, json }) => {
@@ -256,8 +256,8 @@ export const fetchVariants = createAsyncThunk(
 
 export const createVariant = createAsyncThunk(
   "products/createVariant",
-  async ({ productId }, { dispatch }) => {
-    const state = getState()
+  async ({ productId }: any, { dispatch, getState }) => {
+    const state: any = getState()
     const { regular_price, stock_quantity, weight } = state.products.editProduct
     const variant = {
       price: regular_price,
@@ -276,7 +276,7 @@ export const createVariant = createAsyncThunk(
 
 export const updateVariant = createAsyncThunk(
   "products/updateVariant",
-  async ({ productId, variantId, variant }, { dispatch }) => {
+  async ({ productId, variantId, variant }: any, { dispatch }) => {
     return api.products.variants
       .update(productId, variantId, variant)
       .then(({ status, json }) => {
@@ -288,7 +288,7 @@ export const updateVariant = createAsyncThunk(
 
 export const setVariantOption = createAsyncThunk(
   "products/setVariantOption",
-  async ({ productId, variantId, optionId, valueId }, { dispatch }) => {
+  async ({ productId, variantId, optionId, valueId }: any, { dispatch }) => {
     const option = { option_id: optionId, value_id: valueId }
     return api.products.variants
       .setOption(productId, variantId, option)
@@ -301,7 +301,7 @@ export const setVariantOption = createAsyncThunk(
 
 export const createOptionValue = createAsyncThunk(
   "products/createOptionValue",
-  async ({ productId, optionId, valueName }, { dispatch }) => {
+  async ({ productId, optionId, valueName }: any, { dispatch }) => {
     return api.products.options.values
       .create(productId, optionId, { name: valueName })
       .then(({ status, json }) => {
@@ -313,7 +313,7 @@ export const createOptionValue = createAsyncThunk(
 
 export const createOption = createAsyncThunk(
   "products/createOption",
-  async ({ productId, option }, { dispatch }) => {
+  async ({ productId, option }: any, { dispatch }) => {
     return api.products.options
       .create(productId, option)
       .then(({ status, json }) => {
@@ -325,7 +325,7 @@ export const createOption = createAsyncThunk(
 
 export const updateOptionValue = createAsyncThunk(
   "products/updateOptionValue",
-  async ({ productId, optionId, valueId, valueName }, { dispatch }) => {
+  async ({ productId, optionId, valueId, valueName }: any, { dispatch }) => {
     return api.products.options.values
       .update(productId, optionId, valueId, { name: valueName })
       .then(({ status, json }) => {
@@ -337,7 +337,7 @@ export const updateOptionValue = createAsyncThunk(
 
 export const updateOption = createAsyncThunk(
   "products/updateOption",
-  async ({ productId, optionId, option }, { dispatch }) => {
+  async ({ productId, optionId, option }: any, { dispatch }) => {
     return api.products.options
       .update(productId, optionId, option)
       .then(({ status, json }) => {
@@ -349,7 +349,7 @@ export const updateOption = createAsyncThunk(
 
 export const deleteOptionValue = createAsyncThunk(
   "products/deleteOptionValue",
-  async ({ productId, optionId, valueId }, { dispatch }) => {
+  async ({ productId, optionId, valueId }: any, { dispatch }) => {
     return api.products.options.values
       .delete(productId, optionId, valueId)
       .then(({ status, json }) => {
@@ -361,7 +361,7 @@ export const deleteOptionValue = createAsyncThunk(
 
 export const deleteOption = createAsyncThunk(
   "products/deleteOption",
-  async ({ productId, optionId }, { dispatch }) => {
+  async ({ productId, optionId }: any, { dispatch }) => {
     return api.products.options
       .delete(productId, optionId)
       .then(({ status, json }) => {
@@ -373,7 +373,7 @@ export const deleteOption = createAsyncThunk(
 
 export const deleteVariant = createAsyncThunk(
   "products/deleteVariant",
-  async ({ productId, variantId }, { dispatch }) => {
+  async ({ productId, variantId }: any, { dispatch }) => {
     return api.products.variants
       .delete(productId, variantId)
       .then(({ status, json }) => {
@@ -385,7 +385,7 @@ export const deleteVariant = createAsyncThunk(
 
 export const deleteImage = createAsyncThunk(
   "products/deleteImage",
-  async ({ productId, imageId }, { dispatch }) => {
+  async ({ productId, imageId }: any, { dispatch }) => {
     return api.products.images
       .delete(productId, imageId)
       .then(({ status, json }) => {
@@ -397,7 +397,7 @@ export const deleteImage = createAsyncThunk(
 
 export const updateImage = createAsyncThunk(
   "products/updateImage",
-  async ({ productId, image }, { dispatch }) => {
+  async ({ productId, image }: any, { dispatch }) => {
     return api.products.images
       .update(productId, image.id, image)
       .then(() => {
@@ -409,7 +409,7 @@ export const updateImage = createAsyncThunk(
 
 export const updateImages = createAsyncThunk(
   "products/updateImages",
-  async ({ productId, images }, { dispatch }) => {
+  async ({ productId, images }: any, { dispatch }) => {
     let promises = images.map(image =>
       api.products.images.update(productId, image.id, image)
     )
@@ -424,7 +424,7 @@ export const updateImages = createAsyncThunk(
 
 export const uploadImages = createAsyncThunk(
   "products/uploadImages",
-  async ({ productId, form }, { dispatch }) => {
+  async ({ productId, form }: any, { dispatch }) => {
     dispatch(imagesUploadStart())
     return api.products.images
       .upload(productId, form)
