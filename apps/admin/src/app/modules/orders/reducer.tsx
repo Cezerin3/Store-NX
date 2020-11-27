@@ -189,6 +189,10 @@ const getFilter = (state, offset = 0) => {
   return filter
 }
 
+export function clearOrderDetails() {
+  return receiveOrder(null)
+}
+
 export function fetchOrders() {
   return (dispatch, getState) => {
     const state = getState()
