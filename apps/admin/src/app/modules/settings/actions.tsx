@@ -340,13 +340,14 @@ export function updateCheckoutField(checkoutField) {
 }
 
 export function fetchCommerceSettings(value) {
-  return (dispatch, getState) => {
-    return api.settings
+  return async(dispatch, getState) => {
+    try {
+      const {json} = await api.settings
       .retrieveCommerceSettings()
-      .then(({ status, json }) => {
-        dispatch(receiveCommerceSettings(json))
-      })
-      .catch(error => {})
+      dispatch(receiveCommerceSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
