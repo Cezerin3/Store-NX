@@ -2,6 +2,182 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import moment from "moment"
 import { api } from "../../lib"
 
+const productSlice = createSlice({
+  name: "products",
+  initialState: {
+    editProductImages: null,
+    editProductOptions: null,
+    editProductVariants: null,
+    editProduct: null,
+    items: [],
+    selected: [],
+    hasMore: false,
+    totalCount: 0,
+
+    isUpdating: false,
+    loadingItems: false,
+    uploadingImages: false,
+
+    errorFetchEdit: null,
+    errorLoadingItems: null,
+    errorUpdate: null,
+
+    filter: {
+      search: "",
+      enabled: null,
+      discontinued: false,
+      onSale: null,
+      stockStatus: null,
+    },
+  },
+  reducers: {
+    requestProduct(state) {
+      return Object.assign({}, state, {})
+    },
+    receiveProduct(state, action: PayloadAction<any>) {
+      state.editProduct = action.payload
+    },
+    cancelProductEdit(state) {
+      state.isUpdating = false
+      state.editProduct = null
+      state.editProductImages = null
+      state.editProductOptions = null
+      state.editProductVariants = null
+    },
+    receiveProductError(state, action: PayloadAction<any>) {
+      state.errorFetchEdit = action.payload
+    },
+    requestProducts(state) {
+      state.loadingItems = true
+    },
+    receiveProducts(
+      state,
+      action: PayloadAction<{ has_more; total_count; data }>
+    ) {
+      state.loadingItems = false
+      state.hasMore = action.payload.has_more
+      state.totalCount = action.payload.total_count
+      state.items = action.payload.data
+    },
+    receiveProductsError(state, action: PayloadAction<any>) {
+      state.errorLoadingItems = action.payload
+    },
+    selectProduct(state, action: PayloadAction<any>) {
+      state.selected = [...state.selected, action.payload]
+    },
+    deselectProduct(state, action: PayloadAction<any>) {
+      state.selected = state.selected.filter(id => id !== action.payload)
+    },
+    deselectAllProduct(state) {
+      state.selected = []
+    },
+    selectAllProduct(state) {
+      const selected = state.items.map(item => item.id)
+      state.selected = selected
+    },
+    setFilter(state, action: PayloadAction<any>) {
+      const newFilter = Object.assign({}, state.filter, action.payload)
+      state.filter = newFilter
+    },
+    requestMoreProducts(state) {
+      state.loadingItems = true
+    },
+    receiveProductsMore(
+      state,
+      action: PayloadAction<{ has_more; total_count; data }>
+    ) {
+      state.loadingItems = false
+      state.hasMore = action.payload.has_more
+      state.totalCount = action.payload.total_count
+      state.items = [...state.items, ...action.payload.data]
+    },
+    requestUpdateProduct(state) {
+      state.isUpdating = true
+    },
+    receiveVariants(state, action: PayloadAction<any>) {
+      state.editProductVariants = action.payload
+    },
+    receiveOptions(state, action: PayloadAction<any>) {
+      state.editProductOptions = action.payload
+    },
+    receiveImages(state, action: PayloadAction<any>) {
+      state.editProductImages = action.payload
+    },
+    errorUpdateProduct(state, action: PayloadAction<any>) {},
+    receiveUpdateProduct(state, action: PayloadAction<any>) {
+      state.isUpdating = false
+      state.editProduct = action.payload
+    },
+    imagesUploadStart(state) {
+      state.uploadingImages = true
+    },
+    imagesUploadEnd(state) {
+      state.uploadingImages = false
+    },
+    setCategorySuccess() {},
+    deleteProductsSuccess() {},
+    successCreateProduct(state, action: PayloadAction<any>) {},
+  },
+  extraReducers: builder => {
+    builder.addCase(importProducts.pending, () => {}),
+      builder.addCase(fetchProducts.pending, () => {}),
+      builder.addCase(fetchMoreProducts.pending, () => {}),
+      builder.addCase(deleteCurrentProduct.pending, () => {}),
+      builder.addCase(deleteProducts.pending, () => {}),
+      builder.addCase(setCategory.pending, () => {}),
+      builder.addCase(updateProduct.pending, () => {}),
+      builder.addCase(createProduct.pending, () => {}),
+      builder.addCase(fetchProduct.pending, () => {}),
+      builder.addCase(fetchImages.pending, () => {}),
+      builder.addCase(fetchOptions.pending, () => {}),
+      builder.addCase(fetchVariants.pending, () => {}),
+      builder.addCase(createVariant.pending, () => {}),
+      builder.addCase(updateVariant.pending, () => {}),
+      builder.addCase(setVariantOption.pending, () => {}),
+      builder.addCase(createOptionValue.pending, () => {}),
+      builder.addCase(createOption.pending, () => {}),
+      builder.addCase(updateOptionValue.pending, () => {}),
+      builder.addCase(updateOption.pending, () => {}),
+      builder.addCase(deleteOptionValue.pending, () => {}),
+      builder.addCase(deleteOption.pending, () => {}),
+      builder.addCase(deleteVariant.pending, () => {}),
+      builder.addCase(deleteImage.pending, () => {}),
+      builder.addCase(updateImage.pending, () => {}),
+      builder.addCase(updateImages.pending, () => {}),
+      builder.addCase(uploadImages.pending, () => {})
+  },
+})
+
+export const {
+  requestProduct,
+  receiveProduct,
+  cancelProductEdit,
+  receiveProductError,
+  requestProducts,
+  receiveProducts,
+  receiveProductsError,
+  selectProduct,
+  deselectProduct,
+  deselectAllProduct,
+  selectAllProduct,
+  setFilter,
+  requestMoreProducts,
+  receiveProductsMore,
+  requestUpdateProduct,
+  receiveVariants,
+  receiveOptions,
+  receiveImages,
+  errorUpdateProduct,
+  receiveUpdateProduct,
+  imagesUploadStart,
+  imagesUploadEnd,
+  setCategorySuccess,
+  deleteProductsSuccess,
+  successCreateProduct,
+} = productSlice.actions
+
+export default productSlice.reducer
+
 const getFilter = (state, offset = 0) => {
   const searchTerm = state.products.filter.search
   const sortOrder = searchTerm && searchTerm.length > 0 ? "search" : "name"
@@ -450,179 +626,3 @@ export const uploadImages = createAsyncThunk(
       })
   }
 )
-
-const productSlice = createSlice({
-  name: "products",
-  initialState: {
-    editProductImages: null,
-    editProductOptions: null,
-    editProductVariants: null,
-    editProduct: null,
-    items: [],
-    selected: [],
-    hasMore: false,
-    totalCount: 0,
-
-    isUpdating: false,
-    loadingItems: false,
-    uploadingImages: false,
-
-    errorFetchEdit: null,
-    errorLoadingItems: null,
-    errorUpdate: null,
-
-    filter: {
-      search: "",
-      enabled: null,
-      discontinued: false,
-      onSale: null,
-      stockStatus: null,
-    },
-  },
-  reducers: {
-    requestProduct(state) {
-      return Object.assign({}, state, {})
-    },
-    receiveProduct(state, action: PayloadAction<any>) {
-      state.editProduct = action.payload
-    },
-    cancelProductEdit(state) {
-      state.isUpdating = false
-      state.editProduct = null
-      state.editProductImages = null
-      state.editProductOptions = null
-      state.editProductVariants = null
-    },
-    receiveProductError(state, action: PayloadAction<any>) {
-      state.errorFetchEdit = action.payload
-    },
-    requestProducts(state) {
-      state.loadingItems = true
-    },
-    receiveProducts(
-      state,
-      action: PayloadAction<{ has_more; total_count; data }>
-    ) {
-      state.loadingItems = false
-      state.hasMore = action.payload.has_more
-      state.totalCount = action.payload.total_count
-      state.items = action.payload.data
-    },
-    receiveProductsError(state, action: PayloadAction<any>) {
-      state.errorLoadingItems = action.payload
-    },
-    selectProduct(state, action: PayloadAction<any>) {
-      state.selected = [...state.selected, action.payload]
-    },
-    deselectProduct(state, action: PayloadAction<any>) {
-      state.selected = state.selected.filter(id => id !== action.payload)
-    },
-    deselectAllProduct(state) {
-      state.selected = []
-    },
-    selectAllProduct(state) {
-      const selected = state.items.map(item => item.id)
-      state.selected = selected
-    },
-    setFilter(state, action: PayloadAction<any>) {
-      const newFilter = Object.assign({}, state.filter, action.payload)
-      state.filter = newFilter
-    },
-    requestMoreProducts(state) {
-      state.loadingItems = true
-    },
-    receiveProductsMore(
-      state,
-      action: PayloadAction<{ has_more; total_count; data }>
-    ) {
-      state.loadingItems = false
-      state.hasMore = action.payload.has_more
-      state.totalCount = action.payload.total_count
-      state.items = [...state.items, ...action.payload.data]
-    },
-    requestUpdateProduct(state) {
-      state.isUpdating = true
-    },
-    receiveVariants(state, action: PayloadAction<any>) {
-      state.editProductVariants = action.payload
-    },
-    receiveOptions(state, action: PayloadAction<any>) {
-      state.editProductOptions = action.payload
-    },
-    receiveImages(state, action: PayloadAction<any>) {
-      state.editProductImages = action.payload
-    },
-    errorUpdateProduct(state, action: PayloadAction<any>) {},
-    receiveUpdateProduct(state, action: PayloadAction<any>) {
-      state.isUpdating = false
-      state.editProduct = action.payload
-    },
-    imagesUploadStart(state) {
-      state.uploadingImages = true
-    },
-    imagesUploadEnd(state) {
-      state.uploadingImages = false
-    },
-    setCategorySuccess() {},
-    deleteProductsSuccess() {},
-    successCreateProduct(state, action: PayloadAction<any>) {},
-  },
-  extraReducers: builder => {
-    builder.addCase(importProducts.pending, () => {}),
-      builder.addCase(fetchProducts.pending, () => {}),
-      builder.addCase(fetchMoreProducts.pending, () => {}),
-      builder.addCase(deleteCurrentProduct.pending, () => {}),
-      builder.addCase(deleteProducts.pending, () => {}),
-      builder.addCase(setCategory.pending, () => {}),
-      builder.addCase(updateProduct.pending, () => {}),
-      builder.addCase(createProduct.pending, () => {}),
-      builder.addCase(fetchProduct.pending, () => {}),
-      builder.addCase(fetchImages.pending, () => {}),
-      builder.addCase(fetchOptions.pending, () => {}),
-      builder.addCase(fetchVariants.pending, () => {}),
-      builder.addCase(createVariant.pending, () => {}),
-      builder.addCase(updateVariant.pending, () => {}),
-      builder.addCase(setVariantOption.pending, () => {}),
-      builder.addCase(createOptionValue.pending, () => {}),
-      builder.addCase(createOption.pending, () => {}),
-      builder.addCase(updateOptionValue.pending, () => {}),
-      builder.addCase(updateOption.pending, () => {}),
-      builder.addCase(deleteOptionValue.pending, () => {}),
-      builder.addCase(deleteOption.pending, () => {}),
-      builder.addCase(deleteVariant.pending, () => {}),
-      builder.addCase(deleteImage.pending, () => {}),
-      builder.addCase(updateImage.pending, () => {}),
-      builder.addCase(updateImages.pending, () => {}),
-      builder.addCase(uploadImages.pending, () => {})
-  },
-})
-
-export const {
-  requestProduct,
-  receiveProduct,
-  cancelProductEdit,
-  receiveProductError,
-  requestProducts,
-  receiveProducts,
-  receiveProductsError,
-  selectProduct,
-  deselectProduct,
-  deselectAllProduct,
-  selectAllProduct,
-  setFilter,
-  requestMoreProducts,
-  receiveProductsMore,
-  requestUpdateProduct,
-  receiveVariants,
-  receiveOptions,
-  receiveImages,
-  errorUpdateProduct,
-  receiveUpdateProduct,
-  imagesUploadStart,
-  imagesUploadEnd,
-  setCategorySuccess,
-  deleteProductsSuccess,
-  successCreateProduct,
-} = productSlice.actions
-
-export default productSlice.reducer
