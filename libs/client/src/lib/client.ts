@@ -154,7 +154,7 @@ class Client {
 
   static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email)
 
-  static authorizeInWebStore = (email, adminUrl) =>
+  static authorizeInWebStore = (email, adminUrl): any =>
     WebStoreClient.authorize(email, adminUrl)
 }
 
