@@ -14,9 +14,6 @@ import ProductVariants from "./variants"
 const ProductEditContainer = props => {
   useEffect(() => {
     props.fetchData()
-  }, [])
-
-  useEffect(() => {
     return () => props.eraseData()
   }, [])
 

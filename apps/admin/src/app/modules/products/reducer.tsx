@@ -132,7 +132,7 @@ export const deleteProducts = createAsyncThunk(
 
 export const setCategory = createAsyncThunk(
   "products/setCategory",
-  async ({ category_id }: any, { dispatch, getState }) => {
+  async (category_id: any, { dispatch, getState }) => {
     const state: any = getState()
     let promises = state.products.selected.map(productId =>
       api.products.update(productId, { category_id: category_id })
@@ -152,24 +152,22 @@ export const setCategory = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
-  async ({ data }: any, { dispatch }) => {
+  async (data: any, { dispatch }) => {
     dispatch(requestUpdateProduct())
-
-    return api.products
-      .update(data.id, data)
-      .then(({ status, json }) => {
-        const product = fixProductData(json)
-        dispatch(receiveUpdateProduct(product))
-      })
-      .catch(error => {
-        dispatch(errorUpdateProduct(error))
-      })
+    try {
+      const { json } = await api.products.update(data.id, data)
+      const product = fixProductData(json)
+      dispatch(receiveUpdateProduct(product))
+    } catch (error) {
+      console.error(error)
+      dispatch(errorUpdateProduct(error))
+    }
   }
 )
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
-  async ({ history }: any, { dispatch, getState }) => {
+  async (history: any, { dispatch, getState }) => {
     const state: any = getState()
 
     const productDraft = {
@@ -203,7 +201,7 @@ const fixProductData = product => {
 
 export const fetchProduct = createAsyncThunk(
   "products/fetchProduct",
-  async ({ id }: any, { dispatch }) => {
+  async (id: any, { dispatch }) => {
     dispatch(requestProduct())
 
     return api.products
@@ -220,7 +218,7 @@ export const fetchProduct = createAsyncThunk(
 
 export const fetchImages = createAsyncThunk(
   "products/fetchImages",
-  async ({ productId }: any, { dispatch }) => {
+  async (productId: any, { dispatch }) => {
     return api.products.images
       .list(productId)
       .then(({ status, json }) => {
@@ -232,7 +230,7 @@ export const fetchImages = createAsyncThunk(
 
 export const fetchOptions = createAsyncThunk(
   "products/fetchOptions",
-  async ({ productId }: any, { dispatch }) => {
+  async (productId: any, { dispatch }) => {
     return api.products.options
       .list(productId)
       .then(({ status, json }) => {
@@ -244,19 +242,19 @@ export const fetchOptions = createAsyncThunk(
 
 export const fetchVariants = createAsyncThunk(
   "products/fetchVariants",
-  async ({ productId }: any, { dispatch }) => {
-    return api.products.variants
-      .list(productId)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json))
-      })
-      .catch(error => {})
+  async (productId: any, { dispatch }) => {
+    try {
+      const { json } = await api.products.variants.list(productId)
+      dispatch(receiveVariants(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const createVariant = createAsyncThunk(
   "products/createVariant",
-  async ({ productId }: any, { dispatch, getState }) => {
+  async (productId: any, { dispatch, getState }) => {
     const state: any = getState()
     const { regular_price, stock_quantity, weight } = state.products.editProduct
     const variant = {
@@ -264,13 +262,12 @@ export const createVariant = createAsyncThunk(
       stock_quantity: stock_quantity,
       weight: weight,
     }
-
-    return api.products.variants
-      .create(productId, variant)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.variants.create(productId, variant)
+      dispatch(receiveVariants(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
@@ -310,12 +307,14 @@ export const setVariantOption = createAsyncThunk(
 export const createOptionValue = createAsyncThunk(
   "products/createOptionValue",
   async ({ productId, optionId, valueName }: any, { dispatch }) => {
-    return api.products.options.values
-      .create(productId, optionId, { name: valueName })
-      .then(({ status, json }) => {
-        dispatch(fetchOptions(productId))
+    try {
+      await api.products.options.values.create(productId, optionId, {
+        name: valueName,
       })
-      .catch(error => {})
+      dispatch(fetchOptions(productId))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
@@ -334,84 +333,90 @@ export const createOption = createAsyncThunk(
 export const updateOptionValue = createAsyncThunk(
   "products/updateOptionValue",
   async ({ productId, optionId, valueId, valueName }: any, { dispatch }) => {
-    return api.products.options.values
-      .update(productId, optionId, valueId, { name: valueName })
-      .then(({ status, json }) => {
-        dispatch(fetchOptions(productId))
+    try {
+      await api.products.options.values.update(productId, optionId, valueId, {
+        name: valueName,
       })
-      .catch(error => {})
+      dispatch(fetchOptions(productId))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const updateOption = createAsyncThunk(
   "products/updateOption",
   async ({ productId, optionId, option }: any, { dispatch }) => {
-    return api.products.options
-      .update(productId, optionId, option)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.options.update(
+        productId,
+        optionId,
+        option
+      )
+      dispatch(receiveOptions(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const deleteOptionValue = createAsyncThunk(
   "products/deleteOptionValue",
   async ({ productId, optionId, valueId }: any, { dispatch }) => {
-    return api.products.options.values
-      .delete(productId, optionId, valueId)
-      .then(({ status, json }) => {
-        dispatch(fetchOptions(productId))
-      })
-      .catch(error => {})
+    try {
+      await api.products.options.values.delete(productId, optionId, valueId)
+      dispatch(fetchOptions(productId))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const deleteOption = createAsyncThunk(
   "products/deleteOption",
   async ({ productId, optionId }: any, { dispatch }) => {
-    return api.products.options
-      .delete(productId, optionId)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.options.delete(productId, optionId)
+      dispatch(receiveOptions(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const deleteVariant = createAsyncThunk(
   "products/deleteVariant",
   async ({ productId, variantId }: any, { dispatch }) => {
-    return api.products.variants
-      .delete(productId, variantId)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.variants.delete(productId, variantId)
+      dispatch(receiveVariants(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const deleteImage = createAsyncThunk(
   "products/deleteImage",
   async ({ productId, imageId }: any, { dispatch }) => {
-    return api.products.images
-      .delete(productId, imageId)
-      .then(({ status, json }) => {
-        dispatch(fetchImages(productId))
-      })
-      .catch(error => {})
+    try {
+      await api.products.images.delete(productId, imageId)
+      dispatch(fetchImages(productId))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 export const updateImage = createAsyncThunk(
   "products/updateImage",
   async ({ productId, image }: any, { dispatch }) => {
-    return api.products.images
-      .update(productId, image.id, image)
-      .then(() => {
-        dispatch(fetchImages(productId))
-      })
-      .catch(error => {})
+    try {
+      await api.products.images.update(productId, image.id, image)
+      dispatch(fetchImages(productId))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
