@@ -45,7 +45,7 @@ const getFilter = (state, offset = 0) => {
 
 export const importProducts = createAsyncThunk(
   "products/importProducts",
-  async (args, { dispatch }) => {
+  async (args: any, { dispatch }) => {
     history => {}
   }
 )
@@ -277,12 +277,16 @@ export const createVariant = createAsyncThunk(
 export const updateVariant = createAsyncThunk(
   "products/updateVariant",
   async ({ productId, variantId, variant }: any, { dispatch }) => {
-    return api.products.variants
-      .update(productId, variantId, variant)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = api.products.variants.update(
+        productId,
+        variantId,
+        variant
+      )
+      dispatch(receiveVariants(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
@@ -290,12 +294,16 @@ export const setVariantOption = createAsyncThunk(
   "products/setVariantOption",
   async ({ productId, variantId, optionId, valueId }: any, { dispatch }) => {
     const option = { option_id: optionId, value_id: valueId }
-    return api.products.variants
-      .setOption(productId, variantId, option)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.variants.setOption(
+        productId,
+        variantId,
+        option
+      )
+      dispatch(receiveVariants(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
@@ -314,12 +322,12 @@ export const createOptionValue = createAsyncThunk(
 export const createOption = createAsyncThunk(
   "products/createOption",
   async ({ productId, option }: any, { dispatch }) => {
-    return api.products.options
-      .create(productId, option)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json))
-      })
-      .catch(error => {})
+    try {
+      const { json } = await api.products.options.create(productId, option)
+      dispatch(receiveOptions(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
