@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { api } from "../../lib"
+import api from "../../lib/api"
 
 // export const fetchFiles = createAsyncThunk(
 //   "files/fetchFiles",
