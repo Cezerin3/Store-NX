@@ -11,7 +11,9 @@ const linkifyPlugin = createLinkifyPlugin()
 
 const plugins = [linkifyPlugin, hashtagPlugin]
 interface props {
-  input: { value: string; onChange: Function }
+  name?: string
+  input?: { value: string; onChange: Function }
+  entityId?
 }
 
 const Draft: FC<props> = (props: props) => {
