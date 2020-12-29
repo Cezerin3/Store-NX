@@ -1,5 +1,6 @@
 import { Button, Grid, MenuItem } from "@material-ui/core"
 import { Select, TextField } from "mui-rff"
+import PropTypes from "prop-types"
 import React, { FC, useEffect, useState } from "react"
 import { Form } from "react-final-form"
 import { api, messages } from "../../../../lib"
@@ -19,9 +20,9 @@ const validate = (values: {}) => {
 }
 
 interface props {
+  initialValues: { id: string }
   onSubmit: Function
-  onCancel?: Function
-  initialValues?: { id: string }
+  onCancel: Function
 }
 
 const SummaryForm: FC<props> = (props: props) => {
@@ -175,6 +176,11 @@ const SummaryForm: FC<props> = (props: props) => {
       )}
     </Form>
   )
+}
+
+SummaryForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 }
 
 export default SummaryForm
