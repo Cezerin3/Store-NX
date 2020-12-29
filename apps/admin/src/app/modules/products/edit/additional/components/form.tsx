@@ -1,4 +1,3 @@
-import { Button, Paper } from "@material-ui/core"
 import { MoreVert } from "@material-ui/icons"
 import IconButton from "material-ui/IconButton"
 import IconMenu from "material-ui/IconMenu"
@@ -7,12 +6,14 @@ import React, { FC, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import TagsInput from "react-tagsinput"
 import { Field, FieldArray, InjectedFormProps, reduxForm } from "redux-form"
-import { TextField } from "redux-form-material-ui"
 import { api, helper, messages } from "../../../../../lib"
 import ProductSearchDialog from "../../../../shared/productSearch"
 import ProductCategoryMultiSelect from "./productCategoryMultiSelect"
 import ProductCategorySelect from "./productCategorySelect"
 import style from "./style.module.sass"
+import { Button, Grid, Paper } from "@material-ui/core"
+import { TextField } from "mui-rff"
+import { Form } from "react-final-form"
 
 const TagsField = ({ input, placeholder }) => {
   const tagsArray = input.value && Array.isArray(input.value) ? input.value : []

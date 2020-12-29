@@ -70,6 +70,7 @@ interface props {
 
 const OrderSummary: FC<props> = (props: props) => {
   const [openSummaryEdit, setOpenSummaryEdit] = useState(false)
+  console.log(openSummaryEdit)
 
   const {
     order,
@@ -211,10 +212,11 @@ const OrderSummary: FC<props> = (props: props) => {
           autoScrollBodyContent
           contentStyle={{ width: 600 }}
         >
+          <button onClick={() => setOpenSummaryEdit(false)}>Dog</button>
           <SummaryForm
             initialValues={order}
-            onCancel={hideSummaryEdit}
-            onSubmit={saveSummaryEdit}
+            onCancel={() => setOpenSummaryEdit(false)}
+            onSubmit={() => saveSummaryEdit}
           />
         </Dialog>
       </div>
