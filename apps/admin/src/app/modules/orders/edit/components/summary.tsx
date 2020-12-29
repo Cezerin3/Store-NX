@@ -1,5 +1,4 @@
-import { Button, Paper } from "@material-ui/core"
-import Dialog from "material-ui/Dialog"
+import { Button, Dialog, Paper } from "@material-ui/core"
 import moment from "moment"
 import React, { FC, useState } from "react"
 import { messages } from "../../../../lib"
@@ -205,11 +204,11 @@ const OrderSummary: FC<props> = (props: props) => {
 
         <Dialog
           title={messages.order}
-          modal={false}
+          // modal={false}
           open={openSummaryEdit}
-          onRequestClose={hideSummaryEdit}
-          autoScrollBodyContent
-          contentStyle={{ width: 600 }}
+          // onRequestClose={hideSummaryEdit}
+          // autoScrollBodyContent
+          // contentStyle={{ width: 600 }}
         >
           <SummaryForm
             initialValues={order}
