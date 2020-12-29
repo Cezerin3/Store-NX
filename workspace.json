@@ -164,7 +164,7 @@
             "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"],
             "styles": ["apps/store/src/styles.sass"],
             "scripts": [],
-            "webpackConfig": "webpack.config"
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
