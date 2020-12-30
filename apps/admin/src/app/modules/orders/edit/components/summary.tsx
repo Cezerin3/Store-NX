@@ -82,7 +82,7 @@ const OrderSummary: FC<props> = (props: props) => {
     setOpenSummaryEdit(false)
   }
 
-  const saveSummaryEdit = order => {
+  const saveSummaryEdit = (order: {}) => {
     onOrderSummaryUpdate(order)
     hideSummaryEdit()
   }

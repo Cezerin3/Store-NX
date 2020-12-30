@@ -134,14 +134,13 @@ const SummaryForm: FC<props> = (props: props) => {
 
   return (
     <Form
-      onSubmit={() => onSubmit}
+      onSubmit={order => onSubmit(order)}
       initialValues={initialValues}
       validate={validate}
       enableReinitialize
-    >
-      {({ handleSubmit, pristine, submitting }) => (
+      render={({ handleSubmit, pristine, submitting }) => (
         <form
-          onSubmit={() => handleSubmit}
+          onSubmit={handleSubmit}
           style={{
             display: "initial",
             width: "100%",
@@ -157,7 +156,7 @@ const SummaryForm: FC<props> = (props: props) => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => onCancel}
+                onClick={() => onCancel()}
               >
                 {messages.cancel}
               </Button>
@@ -174,7 +173,7 @@ const SummaryForm: FC<props> = (props: props) => {
           </Grid>
         </form>
       )}
-    </Form>
+    />
   )
 }
 
