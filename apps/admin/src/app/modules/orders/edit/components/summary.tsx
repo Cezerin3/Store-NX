@@ -211,11 +211,13 @@ const OrderSummary: FC<props> = (props: props) => {
           onClose={hideSummaryEdit}
           // autoScrollBodyContent
         >
-          <SummaryForm
-            initialValues={order}
-            onCancel={hideSummaryEdit}
-            onSubmit={saveSummaryEdit}
-          />
+          <div style={{ padding: "20px" }}>
+            <SummaryForm
+              initialValues={order}
+              onCancel={hideSummaryEdit}
+              onSubmit={saveSummaryEdit}
+            />
+          </div>
         </Dialog>
       </div>
     </Paper>
