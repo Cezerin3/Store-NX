@@ -19,11 +19,14 @@ const validate = values => {
   return errors
 }
 
-const slugExists = values => {
+const slugExists = async values => {
   if (values.slug && values.slug.length > 0) {
-    return api.products
-      .slugExists(values.id, values.slug)
-      .then(response => response.status === 200)
+    try {
+      const response = await api.products.slugExists(values.id, values.slug)
+      return response.status === 200
+    } catch (error) {
+      console.error(error)
+    }
   } else {
     return Promise.resolve(false)
   }
