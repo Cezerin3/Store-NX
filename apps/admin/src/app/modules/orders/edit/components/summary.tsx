@@ -100,7 +100,9 @@ const OrderSummary: FC<props> = (props: props) => {
   try {
     const url = new URL(order.referrer_url)
     referrerDomain = url.hostname
-  } catch (e) {}
+  } catch (error) {
+    console.error(error)
+  }
 
   const referrerLink =
     order.referrer_url && order.referrer_url.includes("http") ? (
