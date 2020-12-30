@@ -62,7 +62,7 @@ const getOrderStates = (order: any) => {
 interface props {
   order
   settings
-  onCheckout
+  onCheckout: Function
   processingCheckout
   onOrderSummaryUpdate: Function
 }
@@ -196,7 +196,7 @@ const OrderSummary: FC<props> = (props: props) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={onCheckout}
+              onClick={() => onCheckout()}
               disabled={processingCheckout}
             >
               {messages.placeOrder}
@@ -208,9 +208,8 @@ const OrderSummary: FC<props> = (props: props) => {
           title={messages.order}
           // modal={false}
           open={openSummaryEdit}
-          // onRequestClose={hideSummaryEdit}
+          onClose={hideSummaryEdit}
           // autoScrollBodyContent
-          // contentStyle={{ width: 600 }}
         >
           <SummaryForm
             initialValues={order}
