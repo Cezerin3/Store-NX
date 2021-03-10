@@ -1843,17 +1843,6 @@
     puka "^1.0.1"
     read-package-json-fast "^1.1.3"
 
-"@nrwl/cli@11.0.18":
-  version "11.0.18"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.18.tgz#8c87152fb20805f29ca277f4f2ba673d3063c75b"
-  integrity sha512-tumoaf2y/ZJc/QPNuk4nz2n1k7iylz24cIJMhqug6QvlVrX1YWkYw1wS1XOaBwIbpSapWVIeeCMJ73I7sz9tIw==
-  dependencies:
-    "@nrwl/tao" "11.0.18"
-    chalk "4.1.0"
-    tmp "0.0.33"
-    yargs "15.4.1"
-    yargs-parser "20.0.0"
-
 "@nrwl/cli@11.0.4":
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.4.tgz#a07d6f460aa7a0fa464e039fbe46ffe0f5764419"
@@ -1871,6 +1860,17 @@
   integrity sha512-iOWnQjeEHDIwhXW+7O9SsE33VkZD7EBB2/93WGebU0ZV0r3yQXA+44ZkqW4fwJHsfE9KijaOCtVUmRe6nFhTLQ==
   dependencies:
     "@nrwl/tao" "11.4.0"
+    chalk "4.1.0"
+    tmp "0.0.33"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
+"@nrwl/cli@11.5.1":
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.5.1.tgz#6d7ac5d1e8dc7d55baa9790789ce7565206a9e5e"
+  integrity sha512-xQNKOSkqoPUP02/d2k8VOfDwqORFy4abNkdCehlZsxkb0sNCPttuuPSnu0tsVNyblQg62VIz2sPul7KXNpyIsg==
+  dependencies:
+    "@nrwl/tao" "11.5.1"
     chalk "4.1.0"
     tmp "0.0.33"
     yargs "15.4.1"
@@ -2123,6 +2123,23 @@
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.4.0.tgz#0e9365531a6fa5a3e47d12dc6903045590e82bb9"
   integrity sha512-vQY/xzfAsdCxjXpz2Pob9HdE5HNrfnWbVqdH1z6yC2BdXXB7i3q0WTW167jlBq9ObMfKso+SnkCqbpTDXp1zqw==
+  dependencies:
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@11.5.1":
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.5.1.tgz#87101395c8fe053572d5e41eacc6bb651039985a"
+  integrity sha512-RXQTVDT699vXaRmz5tIKDG/6gY9FfyxRYqS9wVL9B9Qp9ayIRWs2EfYBLww9Wq4irLmRsO2+UoUOLfk6346V9w==
   dependencies:
     chalk "4.1.0"
     fs-extra "7.0.1"
